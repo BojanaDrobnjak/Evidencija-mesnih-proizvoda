@@ -1,0 +1,89 @@
+<div class="registration-form">
+  <div class="form-container">
+    <div class="title-container">
+      <label> Please register </label>
+    </div>
+    <form class="example-form" [formGroup]="registrationForm">
+      <div class="example-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your email</mat-label>
+          <input
+            matInput
+            placeholder="pat@example.com"
+            [formControl]="email"
+            required
+          />
+          <mat-error *ngIf="email.invalid">Email is not valid.</mat-error>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            placeholder="Username"
+            [formControl]="korisnickoIme"
+            required
+          />
+          <mat-error *ngIf="korisnickoIme.invalid">Username is not valid.</mat-error>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your password</mat-label>
+          <input
+            matInput
+            [type]="sakrijSifru ? 'password' : 'text'"
+            [formControl]="sifra"
+            required
+          />
+          <label
+            mat-icon-button
+            matSuffix
+            (click)="sakrijSifru = !sakrijSifru"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="sakrijSifru"
+          >
+            <mat-icon>{{
+              sakrijSifru ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </label>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="fill">
+          <mat-error *ngIf="ponoviSifru.hasError('daLiSeSifrePodudaraju')"
+            >Password doesn't match.</mat-error
+          >
+          <mat-label>Repeat your password</mat-label>
+          <input
+            matInput
+            [type]="sakrijPonovljenuSifru ? 'password' : 'text'"
+            [formControl]="ponoviSifru"
+            required
+          />
+          <label
+            mat-icon-button
+            matSuffix
+            (click)="sakrijPonovljenuSifru = !sakrijPonovljenuSifru"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="sakrijPonovljenuSifru"
+          >
+            <mat-icon>{{
+              sakrijPonovljenuSifru ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </label>
+        </mat-form-field>
+        <br />
+        <div class="register-button-container">
+          <button
+            (click)="submitForm()"
+            class="register-button"
+            type="submit"
+            mat-raised-button
+            color="primary"
+          >
+            Register
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

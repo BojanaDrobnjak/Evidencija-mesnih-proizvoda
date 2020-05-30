@@ -1,0 +1,67 @@
+<hr>
+<div class="proizvod-container">
+  <form class="forma" [formGroup]="proizvodForma">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Unesite naziv proizvoda</mat-label>
+      <input matInput [formControl]="naziv" required />
+      <mat-error *ngIf="naziv.invalid">Naziv proizvoda se mora uneti.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Unesite kolicinu proizvoda u kg</mat-label>
+      <input matInput [formControl]="kolicina" required />
+      <mat-error *ngIf="kolicina.invalid">Kolicina proizvoda se mora uneti.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Naziv dobavljaca</mat-label>
+      <mat-select [formControl]="nazivDobavljaca">
+        <mat-option *ngFor="let dobavljac of dobavljaci" [value]="dobavljac._id">
+          {{dobavljac.naziv}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="nazivDobavljaca.invalid">Dobavljac se mora izabrati</mat-error>
+    </mat-form-field>
+
+    <div class="register-button-container">
+      <button (click)="unesiProizvod()" class="register-button" type="submit" mat-raised-button color="primary"> Unesi
+      </button>
+    </div>
+  </form>
+</div>
+
+<hr>
+<div class="container">
+  <div class="flex-div">
+
+    <mat-form-field>
+      <mat-label>Pretraga</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Pretraga">
+    </mat-form-field>
+    <br>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 angular-material-table">
+
+      <ng-container matColumnDef="naziv">
+        <th mat-header-cell *matHeaderCellDef> Naziv </th>
+        <td mat-cell *matCellDef="let element"> {{element.naziv}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="kolicina">
+        <th mat-header-cell *matHeaderCellDef> Kolicina u kg</th>
+        <td mat-cell *matCellDef="let element"> {{element.kolicina}} <button (click)="smanjiKolicinu(element._id);"
+            mat-flat-button color="warn">-</button> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nazivDobavljaca">
+        <th mat-header-cell *matHeaderCellDef> Naziv Dobavljaca </th>
+        <td mat-cell *matCellDef="let element"> {{element.nazivDobavljaca}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </div>
+</div>
